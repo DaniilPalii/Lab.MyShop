@@ -1,1 +1,3 @@
-<Solution />
+<Solution>
+  <Project Path="MyShop.WebApi/MyShop.WebApi.csproj" />
+</Solution>
