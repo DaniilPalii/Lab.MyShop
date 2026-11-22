@@ -7,6 +7,11 @@ builder.Services.AddFastEndpoints();
 builder.Services.AddOpenApi();
 builder.Services.SwaggerDocument();
 
+builder.Services.AddTemporalClient(options =>
+{
+	options.TargetHost = builder.Configuration["Temporal:TargetHost"];
+});
+
 var app = builder.Build();
 
 app.UseHttpsRedirection();
@@ -21,4 +26,4 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerGen();
 }
 
-app.Run();
+await app.RunAsync();

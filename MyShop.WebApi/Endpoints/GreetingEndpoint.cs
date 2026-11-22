@@ -1,8 +1,11 @@
 using FastEndpoints;
+using MyShop.Contracts.Workflows;
+using Temporalio.Client;
 
 namespace MyShop.WebApi.Endpoints;
 
-public class GreetingEndpoint : Endpoint<GreetingRequest>
+public class GreetingEndpoint(ITemporalClient temporalClient)
+	: Endpoint<GreetingRequest>
 {
 	public override void Configure()
 	{
@@ -10,11 +13,20 @@ public class GreetingEndpoint : Endpoint<GreetingRequest>
 		AllowAnonymous();
 	}
 
-	public override async Task HandleAsync(GreetingRequest request, CancellationToken ct)
+	public override async Task HandleAsync(GreetingRequest request, CancellationToken cancellationToken)
 	{
+		var handle = await temporalClient.StartWorkflowAsync<IGreetingWorkflow, string>(
+			workflow => workflow.RunAsync(request.Name),
+			options: new(
+				id: GreetingWorkflowIds.Create(),
+				taskQueue: TaskQueueIds.MyShop));
+
+		var result = await handle.GetResultAsync<string>(
+			rpcOptions: new() { CancellationToken = cancellationToken});
+
 		await Send.OkAsync(
-			new GreetingResponse($"Hello, {request.Name}!"),
-			ct);
+			new GreetingResponse(result),
+			cancellationToken);
 	}
 }
 

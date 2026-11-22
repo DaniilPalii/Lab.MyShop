@@ -10,6 +10,12 @@
 		<PackageReference Include="FastEndpoints" Version="9.0.0"/>
 		<PackageReference Include="FastEndpoints.Swagger" Version="9.0.0"/>
 		<PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="11.0.0"/>
+		<PackageReference Include="Temporalio.Extensions.Hosting" Version="1.22.0"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MyShop.Contracts\MyShop.Contracts.csproj"/>
+		<ProjectReference Include="..\MyShop.FulfillmentWorker\MyShop.FulfillmentWorker.csproj"/>
 	</ItemGroup>
 
 </Project>
