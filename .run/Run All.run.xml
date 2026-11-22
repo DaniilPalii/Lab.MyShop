@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Run All" type="CompoundRunConfigurationType">
+    <toRun name="MyShop.FulfillmentWorker" type="LaunchSettings" />
+    <toRun name="MyShop.WebApi: https" type="LaunchSettings" />
+    <method v="2" />
+  </configuration>
+</component>
