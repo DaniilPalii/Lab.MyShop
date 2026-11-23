@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/SolutionFolder/">
+    <File Path="docker-compose.yml" />
+  </Folder>
   <Project Path="MyShop.Contracts/MyShop.Contracts.csproj" />
   <Project Path="MyShop.FulfillmentWorker/MyShop.FulfillmentWorker.csproj" />
   <Project Path="MyShop.WebApi/MyShop.WebApi.csproj" />
