@@ -22,8 +22,19 @@ app.UseFastEndpoints(config =>
 
 if (app.Environment.IsDevelopment())
 {
-	app.MapOpenApi();
-	app.UseSwaggerGen();
+	app.UseOpenApi();
+
+	const string swaggerRoute = "/swagger";
+	app.UseSwaggerUi(config => config.Path = swaggerRoute);
+
+	app.Lifetime.ApplicationStarted.Register(() =>
+	{
+		var logger = app.Services.GetRequiredService<ILoggerFactory>()
+			.CreateLogger("Swagger");
+
+		foreach (var appUrl in app.Urls)
+			logger.LogInformation("Swagger UI: {appUrl}{swaggerRoute}", appUrl, swaggerRoute);
+	});
 }
 
 await app.RunAsync();
